@@ -1,0 +1,74 @@
+layout=read.csv('Luciferase_plate_layout.csv',header=F)
+firefly=read.csv('Firefly_values_210803.csv',header=F)
+renilla=read.csv('Renilla_values_210803.csv',header=F)
+
+REFERENCE='banwt' # reference group for Dunnett's test
+
+constructs=c()
+for (column in 1:ncol(layout))
+constructs=append(constructs,as.character(layout[,column]))
+constructs=unique(constructs[constructs!='untransfected' & constructs!='∅'])
+constructs=c(constructs[length(constructs)],constructs[1:(length(constructs)-1)]) # re-organizing the order of constructs (to have "pmiRGLO" appearing at the left on the graph)
+
+header=c()
+for (luciferase in c('FF','R'))
+{
+add=c()
+names=c()
+if (luciferase=='FF') data=firefly
+if (luciferase=='R') data=renilla
+bkg=mean(data[layout=='untransfected']) # this is the background signal (to be subtracted from every replicate in transfected wells)
+for (construct in constructs)
+{
+add=append(add,data[layout==construct]-bkg)
+if (luciferase=='FF') # only fills name vector for the first luciferase to be analyzed
+names=append(names,rep(construct,length(data[layout==construct])))
+}
+if (luciferase=='FF')
+{
+all=list(names,add)
+header=append(header,c('Construct',luciferase))
+} else
+{
+all[[length(all)+1]]=add
+header=append(header,luciferase)
+}
+}
+names(all)=header
+all=as.data.frame(all)
+x=c()
+ratio=c()
+desc=c()
+for (i in 1:length(constructs))
+{
+construct=constructs[i]
+x=append(x,rep(i,length(all$Construct[all$Construct==construct])))
+ratio=cbind(ratio,(all$FF/all$R)[all$Construct==construct])
+desc=append(desc,rep(construct,length(all$Construct[all$Construct==construct])))
+}
+y_range=max(pretty(c(0,max(ratio))))
+normality_pval=c()
+for (i in 1:length(constructs))
+normality_pval=append(normality_pval,shapiro.test(ratio[,i])$p.value)
+length(normality_pval[normality_pval<0.05])/length(normality_pval) # OK, ratios seem to be normally distributed (1 out of 12 has a Shapiro-Wilk p-value<0.05)
+library(car)
+leveneTest(c(ratio),as.factor(desc)) # OK, variances appear homogeneous
+
+library(DescTools)
+test_output=DunnettTest(x=c(ratio),g=as.factor(desc),control=REFERENCE)
+compared=sub(paste('-',REFERENCE,sep=''),'',rownames(as.data.frame(test_output[1])))
+pvalue=as.data.frame(test_output[1])[,4]
+
+### Below: re-organizes Dunnett's test p-values (in the same order than 'constructs'):
+display_pvalue=c()
+for (construct in constructs)
+if (construct==REFERENCE)
+{
+display_pvalue=append(display_pvalue,NA)
+} else display_pvalue=append(display_pvalue,signif(pvalue[compared==construct],digits=3))
+
+pdf('Luciferase_assay_results.pdf',width=12,height=8)
+plot(x,ratio,axes=F,xlab='',ylab='Firefly/Renilla (after bkg subtraction)',ylim=c(0,y_range))
+axis(1,labels=paste(constructs,display_pvalue,sep='\n'),at=c(1:length(constructs)))
+axis(2)
+dev.off()
