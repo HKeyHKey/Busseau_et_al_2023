@@ -1,0 +1,56 @@
+>d1319 banHA443Sac SacI bantam region, for homology arms
+aaGAGCTCAAAGGGAGCGAAAAACACTGAG
+>d1320 banHA3699Xho bantam region XhoI, for homology arms
+aaCTCGAGGATTTGATTTGAGCACCGAATG
+>d1343 ban-sg2bbs-F for sgRNA against PAM2 to be cloned in U6:3
+gtcgGACCATCGGAATGTGGAATG
+>d1316 ban-sg2bbs-R Pour sgRNA against PAM2 to be cloned in U6:3
+aaacCATTCCACATTCCGATGGTC
+> d1938	bansg7bbsF	
+gtcgCGATATCGCTATATCTGTGT
+> d1939	bansg7bbsR	
+aaacACACAGATATAGCGATATCG
+> d2227 to capture Drosophila 2S rRNA
+5Biosg-AGTCTTACAACCCTCAACCATATGTAGTCCAAGCAGCACT
+> d2289 Sac-ban-up	
+aagaGCTCGACGCGTTTGTAACTCCAATG
+> d2290	Xba-ban-do	
+GCATCTAGAAATCGACCATCGGAATGT
+>d2436	pGLOR	for pmiRGLO-ban mutants seed only
+AAATCGAAAACCGGTTTCGTAGTC
+>d2437	pGLOF	for pmiRGLO-ban mutants seed only	
+ATTTTGAAAGCTGATTTTGTCAATGAATACC
+>d2438	banm5F	Candidate_mutant_hairpins_June2021
+ACCGGTTTTCGATTTTCTAGCACTGTTTTTCATACAAGTCCTAGAATTTTGAAAGCTGAT
+>d2439	banm5R	Candidate_mutant_hairpins_June2021
+ATCAGCTTTCAAAATTCTAGGACTTGTATGAAAAACAGTGCTAGAAAATCGAAAACCGGT
+>d2440	banm6F	Candidate_mutant_hairpins_June2021
+ACCGGTTTTCGATTTTAGTGCACTGTTTTTCATACAAGTCCACTAATTTTGAAAGCTGAT
+>d2441	banm6R	Candidate_mutant_hairpins_June2021
+ATCAGCTTTCAAAATTAGTGGACTTGTATGAAAAACAGTGCACTAAAATCGAAAACCGGT
+>d2442	banm7F	Candidate_mutant_hairpins_June2021
+ACCGGTTTTCGATTTTTAGCCACTGTTTTTCATACAAGTCGCTAAATTTTGAAAGCTGAT
+>d2443	banm7R	Candidate_mutant_hairpins_June2021
+ATCAGCTTTCAAAATTTAGCGACTTGTATGAAAAACAGTGGCTAAAAATCGAAAACCGGT
+>d2444	banm8F	Candidate_mutant_hairpins_June2021
+ACCGGTTTTCGATTTCCTTTCACTGTTTTTCATACAAGTCAAAGGATTTTGAAAGCTGAT
+>d2445	banm8R	Candidate_mutant_hairpins_June2021
+ATCAGCTTTCAAAATCCTTTGACTTGTATGAAAAACAGTGAAAGGAAATCGAAAACCGGT
+>d2446	banm9F	Candidate_mutant_hairpins_June2021
+ACCGGTTTTCGATTTTAGTCCACTGTTTTTCATACAAGTCGACTAATTTTGAAAGCTGAT
+>d2447	banm9R	Candidate_mutant_hairpins_June2021
+ATCAGCTTTCAAAATTAGTCGACTTGTATGAAAAACAGTGGACTAAAATCGAAAACCGGT
+>d1360 pUAStup346
+GCAACTACTGAAATCTGCCAAG
+>d1361 pUAStdo505
+GTCCAATTATGTCACACCACAG
+> d1379 banDXba For cloning banD wt and mutated into pUASpSV40 attP
+GCATCTAGAAATCGACCATCGGAATGTGG
+> d1380 For cloning banD wt and mutated into pUASpSV40 attP MlubanD
+CGACGCGTTTGTAACTCCAATGATTTG
+> r25 Spike-in for Small RNA-Seq (that's the wt bantam sequence, with the central UUG trinucleotide replaced by CGC, to allow us to distinguish them)
+P-UGAGAUCAUUCGCAAAGCUGAUU
+> r26 Spike-in for Small RNA-Seq (that's the m2 bantam sequence, with the central UUG trinucleotide replaced by CGC, to allow us to distinguish them)
+P-UCAAAAUAUUCGCAAAGCUGAUU
+> r64 Spike-in for Small RNA-Seq (that's the m6 bantam sequence, with the central UUG trinucleotide replaced by CGC, to allow us to distinguish them; similar to r25 for wt and to r26 for m2)
+P-UCCACUAAUUCGCAAAGCUGAUU
