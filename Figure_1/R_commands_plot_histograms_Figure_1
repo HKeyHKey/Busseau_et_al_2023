@@ -1,0 +1,34 @@
+spike_counts=read.csv("Spike-in_counts.csv",header=T,sep=",")
+correction_ratio=spike_counts$wt_spike_count[spike_counts$Strategy=='Full-length']/spike_counts$mut_spike_count[spike_counts$Strategy=='Full-length'] # When comparing the abundance of full-length wt bantam to that of full-length m2 bantam, multiplying m2 bantam read count by that ratio should correct for sequencing biases between these two sequences
+
+# Below: loading normalized abundance of detected bantam isoforms (wt and mutant alleles):
+isoforms_wt_m2 <- read.csv("isoforms_bantam_wt_m2.csv", header = F, sep = ",")
+isoforms_wt_m27_5 <- read.csv("isoforms_bantam_wt_m27.csv", header = F, sep = ",")
+isoforms_wt_m47_7 <- read.csv("isoforms_bantam_wt_m47.csv", header = F, sep = ",")
+isoforms_wt_TM6 <- read.csv("isoforms_bantam_wt_TM6.csv", header = F, sep = ",")
+isoforms_mutant_m2 <- read.csv("isoforms_bantam_m2_m2.csv", header = F, sep = ",")
+isoforms_mutant_m27_5 <- read.csv("isoforms_bantam_m2_m27.csv", header = F, sep = ",")
+isoforms_mutant_m47_7 <- read.csv("isoforms_bantam_m2_m47.csv", header = F, sep = ",")
+isoforms_mutant_TM6 <- read.csv("isoforms_bantam_m2_TM6.csv", header = F, sep = ",")
+
+# x is a data.frame containing isoform abundances; y is the seed sequence to search:
+sum_isoforms <- function(x, y)
+return(c(sum(x[,1][grepl(paste0("^[ATGC]", y), x[, 2])]),sum(x[,1][!grepl(paste0("^[ATGC]", y), x[, 2])])))
+
+wt_seed="GAGATC"
+sum_isoforms_wt=rbind(sum_isoforms(isoforms_wt_TM6,wt_seed),sum_isoforms(isoforms_wt_m2,wt_seed),sum_isoforms(isoforms_wt_m27_5,wt_seed),sum_isoforms(isoforms_wt_m47_7,wt_seed))
+m2_seed="CAAAAT"
+sum_isoforms_mut=rbind(sum_isoforms(isoforms_mutant_TM6,m2_seed),sum_isoforms(isoforms_mutant_m2,m2_seed),sum_isoforms(isoforms_mutant_m27_5,m2_seed),sum_isoforms(isoforms_mutant_m47_7,m2_seed))
+sum_isoforms_mut[,1]=sum_isoforms_mut[,1]*correction_ratio # correcting for sequencing biases (only correcting read counts for isoforms with the correct seed, because that correction ratio was established with full-length RNA oligos only
+
+
+y_range=max(pretty(c(0,max(c(sum_isoforms_wt,sum_isoforms_mut)))))
+pdf('Barplot_wt_miRNA.pdf',width=7,height=7)
+barplot(t(sum_isoforms_wt),col=c("#004fb5", "#6f8faf"),ylim=c(0,y_range))
+axis(1,labels=c('TM6','m2','m27_5','m47_7'),at=c(0.7+(0:3)*1.2))
+dev.off()
+pdf('Barplot_m2_miRNA.pdf',width=7,height=7)
+barplot(t(sum_isoforms_mut),col=c("#dc3434", "#e16b50"),ylim=c(0,y_range))
+axis(1,labels=c('TM6','m2','m27_5','m47_7'),at=c(0.7+(0:3)*1.2))
+dev.off()
+
