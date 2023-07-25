@@ -1,0 +1,41 @@
+spike_counts=read.csv("Spike-in_counts.csv",header=T,sep=",")
+correction_ratio=spike_counts$wt_spike_count[spike_counts$Strategy=='Full-length']/spike_counts$mut_spike_count[spike_counts$Strategy=='Full-length'] # When comparing the abundance of full-length wt bantam to that of full-length m2 bantam, multiplying m2 bantam read count by that ratio should correct for sequencing biases between these two sequences
+
+# Below: loading normalized abundance of detected bantam isoforms (wt and mutant alleles):
+isoforms_wt_m2 <- read.csv("isoforms_bantam_wt_m2.csv", header = F, sep = ",")
+isoforms_wt_m27_5 <- read.csv("isoforms_bantam_wt_m27.csv", header = F, sep = ",")
+isoforms_wt_m47_7 <- read.csv("isoforms_bantam_wt_m47.csv", header = F, sep = ",")
+isoforms_wt_TM6 <- read.csv("isoforms_bantam_wt_TM6.csv", header = F, sep = ",")
+isoforms_mutant_m2 <- read.csv("isoforms_bantam_m2_m2.csv", header = F, sep = ",")
+isoforms_mutant_m27_5 <- read.csv("isoforms_bantam_m2_m27.csv", header = F, sep = ",")
+isoforms_mutant_m47_7 <- read.csv("isoforms_bantam_m2_m47.csv", header = F, sep = ",")
+isoforms_mutant_TM6 <- read.csv("isoforms_bantam_m2_TM6.csv", header = F, sep = ",")
+
+# x is a data.frame containing isoform abundances; y is the seed sequence to search:
+sum_isoforms <- function(x, y)
+return(c(sum(x[,1][grepl(paste0("^[ATGC]", y), x[, 2])]),sum(x[,1][!grepl(paste0("^[ATGC]", y), x[, 2])])))
+
+wt_seed="GAGATC"
+sum_isoforms_wt=rbind(sum_isoforms(isoforms_wt_TM6,wt_seed),sum_isoforms(isoforms_wt_m2,wt_seed),sum_isoforms(isoforms_wt_m27_5,wt_seed),sum_isoforms(isoforms_wt_m47_7,wt_seed))
+m2_seed="CAAAAT"
+sum_isoforms_mut=rbind(sum_isoforms(isoforms_mutant_TM6,m2_seed),sum_isoforms(isoforms_mutant_m2,m2_seed),sum_isoforms(isoforms_mutant_m27_5,m2_seed),sum_isoforms(isoforms_mutant_m47_7,m2_seed))
+sum_isoforms_mut[,1]=sum_isoforms_mut[,1]*correction_ratio # correcting for sequencing biases (only correcting read counts for isoforms with the correct seed, because that correction ratio was established with full-length RNA oligos only
+
+depths=read.table('Depths.dat',header=T)
+d=c(depths$Number_of_genome_mappers[depths$Sample=='TM6'],depths$Number_of_genome_mappers[depths$Sample=='m2'],depths$Number_of_genome_mappers[depths$Sample=='m27'],depths$Number_of_genome_mappers[depths$Sample=='m47'])
+
+raw_isoforms_wt=round(sum_isoforms_wt*d/1e6)
+raw_isoforms_mut=round(sum_isoforms_mut*d/1e6)
+
+genotype_list=c('TM6','m2','m27','m47')
+expected_ratios=c(1,0.5,0.5,0.5) # expected ratio of wt allele if mutant allele accumulated to the same extent
+pval=c()
+for (genotype in 1:4)
+{
+total=(raw_isoforms_wt[,1]+raw_isoforms_mut[,1])[genotype]
+pval=append(pval,fisher.test(cbind(c(raw_isoforms_wt[genotype,1],raw_isoforms_mut[genotype,1]),c(round(total*expected_ratios[genotype]),round(total*(1-expected_ratios[genotype])))))$p.value)
+}
+
+out=list(genotype_list,expected_ratios,pval)
+names(out)=c('Genotype','Expected ratio for wt allele',"Fisher's test p-value")
+write.csv(as.data.frame(out),'Significance_for_Figure_1.csv')
