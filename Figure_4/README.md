@@ -23,7 +23,8 @@ Data accession at [NCBI's SRA database](https://www.ncbi.nlm.nih.gov/sra):
 3´ adapter trimming, then mapping on the supplemented genome, measuring sequencing depth and counting bantam isoform abundance:
 
 ``for f in `ls *.fastq`;do sample=`echo $f | sed 's|_.*||'`;./Script_mapping.sh $f 2 > mapping_$sample'.log';done;echo "Sample Total_number_of_reads Number_of_genome_mappers" > Depths.dat;for sample in `ls mapping_*.log | sed -e 's|mapping_||' -e 's|\.log$||'`;do n1=`head -1 mapping_$sample'.log' | awk '{print $1}'`;n2=`grep '1 time' mapping_$sample'.log' | awk '{s+=$1} END {print s}'`;echo $sample $n1 $n2;done >> Depths.dat;./Script_isoforms.sh``
-(resulting files: 'isoforms\_bantam\_\*.csv')
+
+(resulting files: 'isoforms\_bantam\_\*.csv' and 'Depths.dat')
 
 Counting spike-in reads:
 
