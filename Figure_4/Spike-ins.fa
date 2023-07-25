@@ -1,0 +1,6 @@
+> r25 Spike-in for Small RNA-Seq (that's the wt bantam sequence, with the central UUG trinucleotide replaced by CGC, to allow us to distinguish them)
+P-UGAGAUCAUUCGCAAAGCUGAUU
+> r26 Spike-in for Small RNA-Seq (that's the m2 bantam sequence, with the central UUG trinucleotide replaced by CGC, to allow us to distinguish them)
+P-UCAAAAUAUUCGCAAAGCUGAUU
+> r64 Spike-in for Small RNA-Seq (that's the m6 bantam sequence, with the central UUG trinucleotide replaced by CGC, to allow us to distinguish them; similar to r25 for wt and to r26 for m2)
+P-UCCACUAAUUCGCAAAGCUGAUU

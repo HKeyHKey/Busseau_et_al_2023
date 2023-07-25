@@ -1,0 +1,190 @@
+spike_counts=read.csv("Spike-in_counts.csv",header=T,sep=",")
+
+# Below: loading normalized abundance of detected bantam isoforms (wt and mutant alleles):
+if (file.size("isoforms_bantam_wt_TM6-1.csv")>0)
+{
+isoforms_wt_TM6_1 <- read.csv("isoforms_bantam_wt_TM6-1.csv", header = F, sep = ",")
+} else isoforms_wt_TM6_1=c()
+if (file.size("isoforms_bantam_wt_TM6-3.csv")>0)
+{
+isoforms_wt_TM6_3 <- read.csv("isoforms_bantam_wt_TM6-3.csv", header = F, sep = ",")
+} else isoforms_wt_TM6_3=c()
+if (file.size("isoforms_bantam_wt_m2-1.csv")>0)
+{
+isoforms_wt_m2_1 <- read.csv("isoforms_bantam_wt_m2-1.csv", header = F, sep = ",")
+} else isoforms_wt_m2_1=c()
+if (file.size("isoforms_bantam_wt_m2-3.csv")>0)
+{
+isoforms_wt_m2_3 <- read.csv("isoforms_bantam_wt_m2-3.csv", header = F, sep = ",")
+} else isoforms_wt_m2_3=c()
+if (file.size("isoforms_bantam_wt_m6-1.csv")>0)
+{
+isoforms_wt_m6_1 <- read.csv("isoforms_bantam_wt_m6-1.csv", header = F, sep = ",")
+} else isoforms_wt_m6_1=c()
+if (file.size("isoforms_bantam_wt_m6-2.csv")>0)
+{
+isoforms_wt_m6_2 <- read.csv("isoforms_bantam_wt_m6-2.csv", header = F, sep = ",")
+} else isoforms_wt_m6_2=c()
+if (file.size("isoforms_bantam_wt_m6-3.csv")>0)
+{
+isoforms_wt_m6_3 <- read.csv("isoforms_bantam_wt_m6-3.csv", header = F, sep = ",")
+} else isoforms_wt_m6_3=c()
+if (file.size("isoforms_bantam_wt_md-1.csv")>0)
+{
+isoforms_wt_md_1 <- read.csv("isoforms_bantam_wt_md-1.csv", header = F, sep = ",")
+} else isoforms_wt_md_1=c()
+if (file.size("isoforms_bantam_wt_md-2.csv")>0)
+{
+isoforms_wt_md_2 <- read.csv("isoforms_bantam_wt_md-2.csv", header = F, sep = ",")
+} else isoforms_wt_md_2=c()
+if (file.size("isoforms_bantam_wt_md-3.csv")>0)
+{
+isoforms_wt_md_3 <- read.csv("isoforms_bantam_wt_md-3.csv", header = F, sep = ",")
+} else isoforms_wt_md_3=c()
+
+
+if (file.size("isoforms_bantam_m2_TM6-1.csv")>0)
+{
+isoforms_m2_TM6_1 <- read.csv("isoforms_bantam_m2_TM6-1.csv", header = F, sep = ",")
+} else isoforms_m2_TM6_1=c()
+if (file.size("isoforms_bantam_m2_TM6-3.csv")>0)
+{
+isoforms_m2_TM6_3 <- read.csv("isoforms_bantam_m2_TM6-3.csv", header = F, sep = ",")
+} else isoforms_m2_TM6_3=c()
+if (file.size("isoforms_bantam_m2_m2-1.csv")>0)
+{
+isoforms_m2_m2_1 <- read.csv("isoforms_bantam_m2_m2-1.csv", header = F, sep = ",")
+} else isoforms_m2_m2_1=c()
+if (file.size("isoforms_bantam_m2_m2-3.csv")>0)
+{
+isoforms_m2_m2_3 <- read.csv("isoforms_bantam_m2_m2-3.csv", header = F, sep = ",")
+} else isoforms_m2_m2_3=c()
+if (file.size("isoforms_bantam_m2_m6-1.csv")>0)
+{
+isoforms_m2_m6_1 <- read.csv("isoforms_bantam_m2_m6-1.csv", header = F, sep = ",")
+} else isoforms_m2_m6_1=c()
+if (file.size("isoforms_bantam_m2_m6-2.csv")>0)
+{
+isoforms_m2_m6_2 <- read.csv("isoforms_bantam_m2_m6-2.csv", header = F, sep = ",")
+} else isoforms_m2_m6_2=c()
+if (file.size("isoforms_bantam_m2_m6-3.csv")>0)
+{
+isoforms_m2_m6_3 <- read.csv("isoforms_bantam_m2_m6-3.csv", header = F, sep = ",")
+} else isoforms_m2_m6_3=c()
+if (file.size("isoforms_bantam_m2_md-1.csv")>0)
+{
+isoforms_m2_md_1 <- read.csv("isoforms_bantam_m2_md-1.csv", header = F, sep = ",")
+} else isoforms_m2_md_1=c()
+if (file.size("isoforms_bantam_m2_md-2.csv")>0)
+{
+isoforms_m2_md_2 <- read.csv("isoforms_bantam_m2_md-2.csv", header = F, sep = ",")
+} else isoforms_m2_md_2=c()
+if (file.size("isoforms_bantam_m2_md-3.csv")>0)
+{
+isoforms_m2_md_3 <- read.csv("isoforms_bantam_m2_md-3.csv", header = F, sep = ",")
+} else isoforms_m2_md_3=c()
+
+
+if (file.size("isoforms_bantam_m6_TM6-1.csv")>0)
+{
+isoforms_m6_TM6_1 <- read.csv("isoforms_bantam_m6_TM6-1.csv", header = F, sep = ",")
+} else isoforms_m6_TM6_1=c()
+if (file.size("isoforms_bantam_m6_TM6-3.csv")>0)
+{
+isoforms_m6_TM6_3 <- read.csv("isoforms_bantam_m6_TM6-3.csv", header = F, sep = ",")
+} else isoforms_m6_TM6_3=c()
+if (file.size("isoforms_bantam_m6_m2-1.csv")>0)
+{
+isoforms_m6_m2_1 <- read.csv("isoforms_bantam_m6_m2-1.csv", header = F, sep = ",")
+} else isoforms_m6_m2_1=c()
+if (file.size("isoforms_bantam_m6_m2-3.csv")>0)
+{
+isoforms_m6_m2_3 <- read.csv("isoforms_bantam_m6_m2-3.csv", header = F, sep = ",")
+} else isoforms_m6_m2_3=c()
+if (file.size("isoforms_bantam_m6_m6-1.csv")>0)
+{
+isoforms_m6_m6_1 <- read.csv("isoforms_bantam_m6_m6-1.csv", header = F, sep = ",")
+} else isoforms_m6_m6_1=c()
+if (file.size("isoforms_bantam_m6_m6-2.csv")>0)
+{
+isoforms_m6_m6_2 <- read.csv("isoforms_bantam_m6_m6-2.csv", header = F, sep = ",")
+} else isoforms_m6_m6_2=c()
+if (file.size("isoforms_bantam_m6_m6-3.csv")>0)
+{
+isoforms_m6_m6_3 <- read.csv("isoforms_bantam_m6_m6-3.csv", header = F, sep = ",")
+} else isoforms_m6_m6_3=c()
+if (file.size("isoforms_bantam_m6_md-1.csv")>0)
+{
+isoforms_m6_md_1 <- read.csv("isoforms_bantam_m6_md-1.csv", header = F, sep = ",")
+} else isoforms_m6_md_1=c()
+if (file.size("isoforms_bantam_m6_md-2.csv")>0)
+{
+isoforms_m6_md_2 <- read.csv("isoforms_bantam_m6_md-2.csv", header = F, sep = ",")
+} else isoforms_m6_md_2=c()
+if (file.size("isoforms_bantam_m6_md-3.csv")>0)
+{
+isoforms_m6_md_3 <- read.csv("isoforms_bantam_m6_md-3.csv", header = F, sep = ",")
+} else isoforms_m6_md_3=c()
+
+
+
+# x is a data.frame containing isoform abundances; y is the seed sequence to search:
+sum_isoforms <- function(x, y)
+return(c(sum(x[,1][grepl(paste0("^[ATGC]", y), x[, 2])]),sum(x[,1][!grepl(paste0("^[ATGC]", y), x[, 2])])))
+
+sample_list=c('TM6-1','TM6-3','m2-1','m2-3','m6-1','m6-2','m6-3','md-1','md-2','md-3')
+wt_seed="GAGATC"
+sum_isoforms_wt=rbind(sum_isoforms(isoforms_wt_TM6_1,wt_seed),sum_isoforms(isoforms_wt_TM6_3,wt_seed),sum_isoforms(isoforms_wt_m2_1,wt_seed),sum_isoforms(isoforms_wt_m2_3,wt_seed),sum_isoforms(isoforms_wt_m6_1,wt_seed),sum_isoforms(isoforms_wt_m6_2,wt_seed),sum_isoforms(isoforms_wt_m6_3,wt_seed),sum_isoforms(isoforms_wt_md_1,wt_seed),sum_isoforms(isoforms_wt_md_2,wt_seed),sum_isoforms(isoforms_wt_md_3,wt_seed))
+m2_seed="CAAAAT"
+sum_isoforms_m2=rbind(sum_isoforms(isoforms_m2_TM6_1,m2_seed),sum_isoforms(isoforms_m2_TM6_3,m2_seed),sum_isoforms(isoforms_m2_m2_1,m2_seed),sum_isoforms(isoforms_m2_m2_3,m2_seed),sum_isoforms(isoforms_m2_m6_1,m2_seed),sum_isoforms(isoforms_m2_m6_2,m2_seed),sum_isoforms(isoforms_m2_m6_3,m2_seed),sum_isoforms(isoforms_m2_md_1,m2_seed),sum_isoforms(isoforms_m2_md_2,m2_seed),sum_isoforms(isoforms_m2_md_3,m2_seed))
+m6_seed="CCACTA"
+sum_isoforms_m6=rbind(sum_isoforms(isoforms_m6_TM6_1,m6_seed),sum_isoforms(isoforms_m6_TM6_3,m6_seed),sum_isoforms(isoforms_m6_m2_1,m6_seed),sum_isoforms(isoforms_m6_m2_3,m6_seed),sum_isoforms(isoforms_m6_m6_1,m6_seed),sum_isoforms(isoforms_m6_m6_2,m6_seed),sum_isoforms(isoforms_m6_m6_3,m6_seed),sum_isoforms(isoforms_m6_md_1,m6_seed),sum_isoforms(isoforms_m6_md_2,m6_seed),sum_isoforms(isoforms_m6_md_3,m6_seed))
+
+# Below: correcting for sequencing biases (only correcting read counts for isoforms with the correct seed, because that correction ratio is measured on full-length RNA oligos only):
+for (i in 1:length(sample_list))
+{
+extract=subset(spike_counts,spike_counts$Sample==sample_list[i] & spike_counts$Strategy=='Grep_full-length')
+sum_isoforms_m2[i,1]=sum_isoforms_m2[i,1]*extract$wt_spike_count/extract$m2_spike_count
+sum_isoforms_m6[i,1]=sum_isoforms_m6[i,1]*extract$wt_spike_count/extract$m6_spike_count
+}
+
+y_range=max(pretty(c(0,max(c(sum_isoforms_wt,sum_isoforms_m2,sum_isoforms_m6)))))
+pdf('Barplot_wt_miRNA.pdf',width=7,height=7)
+barplot(t(sum_isoforms_wt),col=c("#004fb5", "#6f8faf"),ylim=c(0,y_range))
+axis(1,labels=sample_list,at=c(0.7+(0:(length(sample_list)-1))*1.2))
+dev.off()
+pdf('Barplot_m2_miRNA.pdf',width=7,height=7)
+barplot(t(sum_isoforms_m2),col=c("#dc3434", "#e16b50"),ylim=c(0,y_range))
+axis(1,labels=sample_list,at=c(0.7+(0:(length(sample_list)-1))*1.2))
+dev.off()
+pdf('Barplot_m6_miRNA.pdf',width=7,height=7)
+barplot(t(sum_isoforms_m6),col=c("#dc3434", "#e16b50"),ylim=c(0,y_range))
+axis(1,labels=sample_list,at=c(0.7+(0:(length(sample_list)-1))*1.2))
+dev.off()
+
+genotype=as.factor(sub('-[0-9]*$','',sample_list))
+### Below: verification of data normality:
+shapiro.test(sum_isoforms_wt[,1][genotype=='m6'])
+shapiro.test(sum_isoforms_m6[,1][genotype=='m6'])
+### OK: the m6/+ values appear normally distributed
+### Below: verification of homoscedasticity:
+library(car)
+leveneTest(c(sum_isoforms_wt[,1][genotype=='m6'],sum_isoforms_m6[,1][genotype=='m6']),as.factor(c(rep('wt',length(sum_isoforms_wt[,1][genotype=='m6'])),rep('m6',length(sum_isoforms_m6[,1][genotype=='m6'])))))
+### OK: the m6/+ values have homogeneous variances for the wt and m6 alleles
+
+geomean=function(x)
+{
+n=0
+m=1
+for (elem in x)
+{
+n=n+1
+m=m*elem
+}
+return(exp(log(m)/n))
+}
+
+geomean(sum_isoforms_wt[,1][genotype=='m2']/sum_isoforms_m2[,1][genotype=='m2']);t.test(sum_isoforms_wt[,1][genotype=='m2'],sum_isoforms_m2[,1][genotype=='m2'],paired=T)$p.value # in the 2 replicates of m2/+: a non-significant fold-change of ~14 between the wt and m2 alleles
+geomean(sum_isoforms_wt[,1][genotype=='m6']/sum_isoforms_m6[,1][genotype=='m6']);t.test(sum_isoforms_wt[,1][genotype=='m6'],sum_isoforms_m6[,1][genotype=='m6'],paired=T)$p.value # in the 3 replicates of m6/+: a non-significant fold-change of ~0.97 be
+
+
