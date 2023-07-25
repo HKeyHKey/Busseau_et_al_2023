@@ -1,8 +1,8 @@
-## Prediction of harpin secondary structures (Figure 3A): ##
+## Prediction of harpin secondary structures (Figure 4A): ##
 
 ``cat Hairpin_sequence_final_allele.fa | RNAfold``
 
-## Measuring and displaying bantam isoform abundance (corrected for sequencing biases for full-length isoforms) (Figure 3B): ##
+## Measuring and displaying bantam isoform abundance (corrected for sequencing biases for full-length isoforms) (Figure 4B): ##
 
 From the dm6 Drosophila genome assembly (see download details in 'Script_1_prepares_index.sh' in [scripts for Figure 1](https://github.com/HKeyHKey/Busseau_et_al_2023/tree/main/Figure_1)): appending spike-in and mutant hairpin sequences, then building a hisat2 index:
 
