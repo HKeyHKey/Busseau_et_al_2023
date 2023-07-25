@@ -8,7 +8,7 @@ From the dm6 Drosophila genome assembly (see download details in 'Script_1_prepa
 
 ``cp dm6.fa Spike-in_supplemented_dm6.fa;sed -e '/^>/ s| ||1' -e '/^>/ s| |_|1' -e '/^>/ s| .*||' -e '/^>/ !s|^P-||' -e '/^>/ !s|U|T|g' Spike-ins.fa >> Spike-in_supplemented_dm6.fa;cat Mutant_hairpins.fa >> Spike-in_supplemented_dm6.fa;hisat2-build -f Spike-in_supplemented_dm6.fa Spike-in_supplemented_dm6``
 
-Data accession at [NCBI's SRA database](https://www.ncbi.nlm.nih.gov/sra):
+Small RNA-Seq data accession at [NCBI's SRA database](https://www.ncbi.nlm.nih.gov/sra):
 * sample "+/+, replic. 1" (fastq file named 'TM6-1_S1_R1_001.fastq' below): [SRR19358055](https://dataview.ncbi.nlm.nih.gov/object/SRR19358055);
 * sample "+/+, replic. 2" (fastq file named 'TM6-3_S7_R1_001.fastq' below): [SRR19358054](https://dataview.ncbi.nlm.nih.gov/object/SRR19358054);
 * sample "m2/+, replic. 1" (fastq file named 'm2-1_S3_R1_001.fastq' below): [SRR19358053](https://dataview.ncbi.nlm.nih.gov/object/SRR19358053);
