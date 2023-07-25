@@ -1,0 +1,32 @@
+data=read.table('Counts.dat',header=T)
+
+ratios=c()
+desc=c()
+
+pdf('Bantam_to_bantamstar_ratio.pdf',width=6,height=16)
+par(mfrow=c(3,1))
+barplot(data$wt_bantam/data$wt_bantamstar,ylab='miRNA/miRNA* ratio',main='wt allele')
+axis(1,labels=data$Sample,at=c(1:length(data$Sample))*1.2-0.5)
+ratios=append(ratios,data$wt_bantam/data$wt_bantamstar)
+desc=append(desc,rep('wt',length(data$wt_bantam/data$wt_bantamstar)))
+
+m2_ratio=data$m2_bantam/data$m2_bantamstar
+m2_ratio[grep('^m2',data$Sample,invert=T)]=NA # ignore every other genotype than m2/+
+barplot(m2_ratio,ylab='miRNA/miRNA* ratio',main='m2 allele')
+axis(1,labels=data$Sample,at=c(1:length(data$Sample))*1.2-0.5)
+ratios=append(ratios,m2_ratio[!is.na(m2_ratio)])
+desc=append(desc,rep('m2',length(m2_ratio[!is.na(m2_ratio)])))
+
+m6_ratio=data$m6_bantam/data$m6_bantamstar
+m6_ratio[grep('^m6',data$Sample,invert=T)]=NA # ignore every other genotype than m6/+
+barplot(m6_ratio,ylab='miRNA/miRNA* ratio',main='m6 allele')
+axis(1,labels=data$Sample,at=c(1:length(data$Sample))*1.2-0.5)
+ratios=append(ratios,m6_ratio[!is.na(m6_ratio)])
+desc=append(desc,rep('m6',length(m6_ratio[!is.na(m6_ratio)])))
+dev.off()
+
+shapiro.test(ratios[desc=='wt'])
+shapiro.test(ratios[desc=='m2']) # not doable: not enough replicates
+shapiro.test(ratios[desc=='m6'])
+
+anova(lm(ratios~desc))
