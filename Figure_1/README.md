@@ -17,3 +17,7 @@ Measuring sequencing biases on the m2 aliquot spiked-in with large amounts of sy
 Plotting bar graph:
 
 ``R CMD BATCH R_commands_plot_histograms_Figure_1``
+
+Calculating Fisher's exact test p-values:
+
+``R CMD BATCH R_commands_significance_Figure_1``
